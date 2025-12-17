@@ -1,0 +1,12 @@
+# Update Logs for Version 1.4.x
+
+## Version 1.4.0
+[+] Add Folia Support
+[+] Migrate to paper-plugin.yml
+[+] Optimize schedulers for modern server software
+[+] Improve database handling
+[+] Various bug fixes and performance improvements
+
+## Version 1.4.1
+[+] Add folia-supported flag to paper-plugin.yml
+[+] Refactor: Update FastInv and GUI components
