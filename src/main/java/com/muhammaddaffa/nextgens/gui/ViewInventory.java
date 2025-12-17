@@ -1,6 +1,6 @@
 package com.muhammaddaffa.nextgens.gui;
 
-import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.nextgens.utils.fastinv.FastInv;
 import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.ItemBuilder;
 import com.muhammaddaffa.mdlib.utils.Placeholder;

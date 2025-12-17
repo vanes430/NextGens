@@ -34,6 +34,7 @@ import com.muhammaddaffa.nextgens.users.UserManager;
 import com.muhammaddaffa.nextgens.users.UserRepository;
 import com.muhammaddaffa.nextgens.utils.FoliaHelper;
 import com.muhammaddaffa.nextgens.utils.Settings;
+import com.muhammaddaffa.nextgens.utils.fastinv.FastInvManager;
 import com.muhammaddaffa.nextgens.worth.WorthManager;
 import dev.norska.dsw.DeluxeSellwands;
 import org.bstats.bukkit.Metrics;
@@ -111,6 +112,8 @@ public final class NextGens extends JavaPlugin {
         MDLib.onEnable(this);
         // initialize scheduler helper
         FoliaHelper.setup(this);
+        // initialize FastInvManager
+        FastInvManager.register(this);
         // --------------------------------------------
         instance = this;
 

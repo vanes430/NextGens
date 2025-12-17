@@ -1,7 +1,7 @@
 package com.muhammaddaffa.nextgens.commands.subcommands;
 
 import com.muhammaddaffa.mdlib.commands.commands.RoutedCommand;
-import com.muhammaddaffa.mdlib.fastinv.FastInvManager;
+import com.muhammaddaffa.nextgens.utils.fastinv.FastInvManager;
 import com.muhammaddaffa.mdlib.utils.Config;
 import com.muhammaddaffa.nextgens.NextGens;
 import com.muhammaddaffa.nextgens.cache.WorldBoostCache;
