@@ -15,24 +15,38 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.PermissionAttachmentInfo;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Utils {
 
     private static final FormatBalance formatBalance = new FormatBalance();
 
     public static ItemStack parsePlaceholderAPI(ItemStack stack) {
-        if (stack == null || stack.getItemMeta() == null) {
+        if (stack == null || !stack.hasItemMeta()) {
             return stack;
         }
         ItemMeta meta = stack.getItemMeta();
         // Parse the display name
-        if (meta.getDisplayName() != null && !meta.getDisplayName().isEmpty()) {
-            meta.setDisplayName(PlaceholderAPI.setPlaceholders(null, meta.getDisplayName()));
+        Component displayName = meta.displayName();
+        if (displayName != null) {
+            String legacy = LegacyComponentSerializer.legacySection().serialize(displayName);
+            String parsed = PlaceholderAPI.setPlaceholders(null, legacy);
+            meta.displayName(LegacyComponentSerializer.legacySection().deserialize(parsed));
         }
-        if (meta.getLore() != null && !meta.getLore().isEmpty()) {
-            meta.setLore(PlaceholderAPI.setPlaceholders(null, meta.getLore()));
+        List<Component> lore = meta.lore();
+        if (lore != null && !lore.isEmpty()) {
+            List<String> legacyLore = lore.stream()
+                    .map(LegacyComponentSerializer.legacySection()::serialize)
+                    .collect(Collectors.toList());
+            List<String> parsedLore = PlaceholderAPI.setPlaceholders(null, legacyLore);
+            meta.lore(parsedLore.stream()
+                    .map(LegacyComponentSerializer.legacySection()::deserialize)
+                    .collect(Collectors.toList()));
         }
         // Set the item meta
         stack.setItemMeta(meta);
@@ -64,19 +78,16 @@ public class Utils {
 
     public static boolean isSimilar(ItemStack one, ItemStack two) {
         if (one == null || two == null) return false;
+        if (one.getType() != two.getType()) return false;
+
         ItemMeta oneMeta = one.getItemMeta();
         ItemMeta twoMeta = two.getItemMeta();
 
-        if (one.getType() == two.getType() &&
-                (oneMeta != null && twoMeta != null) &&
-                oneMeta.getDisplayName().equals(twoMeta.getDisplayName())) {
+        if (oneMeta == null && twoMeta == null) return true;
+        if (oneMeta == null || twoMeta == null) return false;
 
-            if (oneMeta.getLore() == null && twoMeta.getLore() == null) {
-                return true;
-            }
-            return oneMeta.getLore().equals(twoMeta.getLore());
-        }
-        return false;
+        return Objects.equals(oneMeta.displayName(), twoMeta.displayName()) &&
+                Objects.equals(oneMeta.lore(), twoMeta.lore());
     }
 
     public static void performCashback(Player player, UserManager userManager, double amount) {

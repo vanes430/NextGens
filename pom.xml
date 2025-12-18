@@ -6,7 +6,7 @@
 
     <groupId>com.muhammaddaffa</groupId>
     <artifactId>NextGens</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <packaging>jar</packaging>
 
     <name>NextGens</name>
@@ -61,6 +61,10 @@
                         <relocation>
                             <pattern>com.muhammaddaffa.mdlib</pattern>
                             <shadedPattern>com.muhammaddaffa.nextgens.mdlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.tcoded.folialib</pattern>
+                            <shadedPattern>com.muhammaddaffa.nextgens.lib.folialib</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -152,6 +156,10 @@
             <id>songoda-repo</id>
             <url>https://repo.songoda.com/repository/minecraft-plugins/</url>
         </repository>
+        <repository>
+            <id>tcoded-releases</id>
+            <url>https://repo.tcoded.com/releases</url>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -167,6 +175,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.5.1</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- Paper API -->
         <dependency>
             <groupId>io.papermc.paper</groupId>

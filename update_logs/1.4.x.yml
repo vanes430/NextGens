@@ -10,3 +10,8 @@
 ## Version 1.4.1
 [+] Add folia-supported flag to paper-plugin.yml
 [+] Refactor: Update FastInv and GUI components
+
+## Version 1.4.2
+[+] Full Folia Support: Integrated FoliaLib for robust cross-platform scheduling.
+[+] Code Cleanup: Removed deprecated API usage in FastInv and Utils.
+[+] Fix: Resolved compilation warnings for future-proof code.

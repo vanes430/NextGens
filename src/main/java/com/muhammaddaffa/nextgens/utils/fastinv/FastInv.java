@@ -9,6 +9,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class FastInv implements InventoryHolder {
     private Consumer<InventoryClickEvent> clickHandler;
 
     public FastInv(int size) {
-        this(size, InventoryType.CHEST.getDefaultTitle());
+        this(size, InventoryType.CHEST, null);
     }
 
     public FastInv(int size, String title) {
@@ -33,7 +35,7 @@ public class FastInv implements InventoryHolder {
     }
 
     public FastInv(InventoryType type) {
-        this(type, type.getDefaultTitle());
+        this(type, null);
     }
 
     public FastInv(InventoryType type, String title) {
@@ -41,10 +43,19 @@ public class FastInv implements InventoryHolder {
     }
 
     private FastInv(int size, InventoryType type, String title) {
-        if (type == InventoryType.CHEST && size > 0) {
-            this.inventory = Bukkit.createInventory(this, size, title);
+        if (title == null || title.isEmpty()) {
+            if (type == InventoryType.CHEST && size > 0) {
+                this.inventory = Bukkit.createInventory(this, size);
+            } else {
+                this.inventory = Bukkit.createInventory(this, type);
+            }
         } else {
-            this.inventory = Bukkit.createInventory(this, type, title);
+            Component titleComponent = LegacyComponentSerializer.legacySection().deserialize(title);
+            if (type == InventoryType.CHEST && size > 0) {
+                this.inventory = Bukkit.createInventory(this, size, titleComponent);
+            } else {
+                this.inventory = Bukkit.createInventory(this, type, titleComponent);
+            }
         }
     }
 
