@@ -1,19 +1,20 @@
 # Update Logs for Version 1.4.x
 
 ## Version 1.4.0
-[+] Add Folia Support
-[+] Migrate to paper-plugin.yml
-[+] Optimize schedulers for modern server software
-[+] Improve database handling
-[+] Various bug fixes and performance improvements
+[+] Add: Initial support for Folia server software.
+[+] Refactor: Migrated plugin configuration to 'paper-plugin.yml'.
+[+] Perf: Optimized schedulers for modern server software adaptability.
+[+] Refactor: Improved database handling and connection stability.
+[+] Fix: Various minor bugs and performance enhancements.
 
 ## Version 1.4.1
-[+] Add folia-supported flag to paper-plugin.yml
-[+] Refactor: Update FastInv and GUI components
+[+] Add: Included 'folia-supported: true' flag in paper-plugin.yml.
+[+] Refactor: Updated FastInv and GUI components for better compatibility.
 
 ## Version 1.4.2
-[+] Full Folia Support: Integrated FoliaLib for robust cross-platform scheduling.
-[+] Code Cleanup: Removed deprecated API usage in FastInv and Utils.
-[+] Fix: Resolved compilation warnings for future-proof code.
-[+] Fix: Resolved duplicate hologram spawning issues with FancyHolograms and DecentHolograms.
-[+] Refactor: Improved logic in CorruptedHologram and GeneratorTask using switch statements.
+[+] Add: Integrated FoliaLib for robust cross-platform scheduling (Spigot/Paper/Folia).
+[+] Refactor: Migrated legacy string-based item handling to modern Component API (Adventure).
+[+] Refactor: Converted complex if-else chains to Switch statements in GeneratorTask & CorruptedHologram.
+[+] Fix: Resolved duplicate hologram spawning issues when multiple hologram plugins are installed.
+[+] Fix: Prioritized FancyHolograms over other providers in Corrupted Generators.
+[+] Fix: Eliminated all compilation warnings and deprecated API usage.
