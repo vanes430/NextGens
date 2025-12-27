@@ -19,17 +19,24 @@ public record GeneratorLoadChunkListener(
 
     @EventHandler(priority = EventPriority.MONITOR)
     private void onChunkLoad(ChunkLoadEvent event) {
-        handleChunkLoad(event.getChunk());
+        Chunk chunk = event.getChunk();
+        handleChunkLoad(chunk.getWorld().getName(), chunk.getX(), chunk.getZ());
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     private void onMove(PlayerMoveEvent event) {
-        if (event.getFrom().getChunk().equals(event.getTo().getChunk())) return;
-        handleChunkLoad(event.getTo().getChunk());
+        int fromX = event.getFrom().getBlockX() >> 4;
+        int fromZ = event.getFrom().getBlockZ() >> 4;
+        int toX = event.getTo().getBlockX() >> 4;
+        int toZ = event.getTo().getBlockZ() >> 4;
+
+        if (fromX == toX && fromZ == toZ && event.getFrom().getWorld().equals(event.getTo().getWorld())) return;
+        
+        handleChunkLoad(event.getTo().getWorld().getName(), toX, toZ);
     }
 
-    private void handleChunkLoad(Chunk chunk) {
-        ChunkCoord key = new ChunkCoord(chunk.getWorld().getName(), chunk.getX(), chunk.getZ());
+    private void handleChunkLoad(String worldName, int x, int z) {
+        ChunkCoord key = new ChunkCoord(worldName, x, z);
         // If the chunk is already loaded, skip this
         if (!NextGens.LOADED_CHUNKS.add(key)) return;
 
